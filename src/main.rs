@@ -3,21 +3,21 @@ use std::io::Write;
 use std::thread::sleep;
 use std::time::Duration;
 
-fn focus_time(minutes: u8) {
+fn focus_time(minutes: u16) {
     let focus_session_time_in_seconds = minutes * 60;
     let focus_time_message: &str = "Time to focus";
-    session_loop(focus_session_time_in_seconds.into(), focus_time_message);
+    session_loop(focus_session_time_in_seconds, focus_time_message);
 }
 
-fn short_break_time(minutes: u8) {
+fn short_break_time(minutes: u16) {
     let focus_session_time_in_seconds = minutes * 60;
     let focus_time_message: &str = "Take a break ";
-    session_loop(focus_session_time_in_seconds.into(), focus_time_message);
+    session_loop(focus_session_time_in_seconds, focus_time_message);
 }
 
 fn default_pomodoro_loop() {
-    let focus_session_minutes: u8 = 25;
-    let short_break_session_minutes: u8 = 5;
+    let focus_session_minutes: u16 = 25;
+    let short_break_session_minutes: u16 = 5;
     focus_time(focus_session_minutes);
     short_break_time(short_break_session_minutes);
     focus_time(focus_session_minutes);
