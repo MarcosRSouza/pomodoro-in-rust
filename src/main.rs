@@ -4,10 +4,14 @@ use std::thread::sleep;
 use std::time::Duration;
 
 fn focus_time_loop(session_time_in_seconds: u16) -> () {
-    for i in 0..session_time_in_seconds {
-        print!("\rtime: {}", i);
+    let mut elapsed_time = session_time_in_seconds;
+    for _i in 0..session_time_in_seconds {
+        let minutes = elapsed_time/60;
+        let seconds = elapsed_time % 60;
+        print!("\r{}:{}", minutes, seconds);
         io::stdout().flush().unwrap();
         sleep(Duration::from_secs(1));
+        elapsed_time -= 1;
     }
 }
 
