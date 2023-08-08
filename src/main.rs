@@ -8,7 +8,7 @@ fn focus_time_loop(session_time_in_seconds: u16) -> () {
     for _i in 0..session_time_in_seconds {
         let minutes = elapsed_time/60;
         let seconds = elapsed_time % 60;
-        print!("\r{}:{}", minutes, seconds);
+        print!("\rTime to focus {}:{}", minutes, seconds);
         io::stdout().flush().unwrap();
         sleep(Duration::from_secs(1));
         elapsed_time -= 1;
