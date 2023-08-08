@@ -9,10 +9,20 @@ fn focus_time() {
     session_loop(focus_session_time_in_seconds, focus_time_message);
 }
 
-fn break_time() {
+fn short_break_time() {
     let focus_session_time_in_seconds = 5 * 60;
     let focus_time_message: &str = "Take a break ";
     session_loop(focus_session_time_in_seconds, focus_time_message);
+}
+
+fn default_pomodoro_loop() {
+    focus_time();
+    short_break_time();
+    focus_time();
+    short_break_time();
+    focus_time();
+    short_break_time();
+    focus_time();
 }
 
 fn session_loop(session_time_in_seconds: u16, msg: &str) -> () {
@@ -41,9 +51,7 @@ fn main() {
         .expect("Failed to read line");
 
     if mode == "1\n" {
-        focus_time();
-        break_time();
-        focus_time();
+        default_pomodoro_loop();
     }
     println!();
 }
