@@ -3,12 +3,18 @@ use std::io::Write;
 use std::thread::sleep;
 use std::time::Duration;
 
-fn focus_time_loop(session_time_in_seconds: u16) -> () {
+fn focus_time() {
+    let focus_session_time_in_seconds = 25 * 60;
+    let focus_time_message: &str = "Time to focus";
+    session_loop(focus_session_time_in_seconds, focus_time_message);
+}
+
+fn session_loop(session_time_in_seconds: u16, msg: &str) -> () {
     let mut elapsed_time = session_time_in_seconds;
     for _i in 0..session_time_in_seconds {
         let minutes = elapsed_time/60;
         let seconds = elapsed_time % 60;
-        print!("\rTime to focus {}:{}", minutes, seconds);
+        print!("\r{} {}:{}", msg, minutes, seconds);
         io::stdout().flush().unwrap();
         sleep(Duration::from_secs(1));
         elapsed_time -= 1;
@@ -29,8 +35,7 @@ fn main() {
         .expect("Failed to read line");
 
     if mode == "1\n" {
-        let session_time_in_seconds = 25 * 60;
-        focus_time_loop(session_time_in_seconds);
+        focus_time();
     }
     println!();
 }
