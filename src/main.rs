@@ -1,7 +1,10 @@
 use std::io;
+use std::fs::File;
 use std::io::Write;
+use std::io::BufReader;
 use std::thread::sleep;
 use std::time::Duration;
+use rodio::{Decoder, OutputStream, source::Source};
 
 fn handle_number_input() -> u16 {
     let mut input_line = String::new();
@@ -13,22 +16,37 @@ fn handle_number_input() -> u16 {
     return parsed_input_number;
 }
 
+fn play_audio(msg: &str) {
+    let (_stream, stream_handle) = OutputStream::try_default().unwrap();
+    let file_to_play: &str = if msg == "focus" { "assets/vineboom.mp3" } else { "assets/tacobellsound.mp3" };
+    let file = BufReader::new(File::open(file_to_play).unwrap());
+    let source = Decoder::new(file).unwrap();
+    stream_handle.play_raw(source.convert_samples());
+    std::thread::sleep(std::time::Duration::from_secs(2));
+}
+
 fn focus_time(minutes: u16) {
     let focus_session_time_in_seconds = minutes * 60;
     let focus_time_message: &str = "Time to focus";
+    let session_type: &str = "focus";
     session_loop(focus_session_time_in_seconds, focus_time_message);
+    play_audio(session_type);
 }
 
 fn short_break_time(minutes: u16) {
     let focus_session_time_in_seconds = minutes * 60;
     let focus_time_message: &str = "Take a break ";
+    let session_type: &str = "break";
     session_loop(focus_session_time_in_seconds, focus_time_message);
+    play_audio(session_type);
 }
 
 fn long_break_time(minutes: u16) {
     let focus_session_time_in_seconds = minutes * 60;
     let focus_time_message: &str = "Take a break ";
+    let session_type: &str = "break";
     session_loop(focus_session_time_in_seconds, focus_time_message);
+    play_audio(session_type);
 }
 
 fn default_pomodoro_loop() {
