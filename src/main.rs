@@ -84,6 +84,15 @@ fn customized_session_loop(
     }
 }
 
+fn hidden_section_loop(
+    mut customized_number_of_sections_before_long_break: u8
+) {
+    while customized_number_of_sections_before_long_break > 0 {
+        focus_time(5);
+        customized_number_of_sections_before_long_break -= 1;
+    }
+}
+
 fn session_loop(session_time_in_seconds: u16, msg: &str) -> () {
     let mut elapsed_time = session_time_in_seconds;
     for _i in 0..session_time_in_seconds {
@@ -130,6 +139,8 @@ fn main() {
             customized_number_of_sections_before_long_break,
         );
     }
+    
+    else if mode == "3\n" { hidden_section_loop(5); }
 
     println!();
 }
