@@ -9,6 +9,12 @@ fn focus_time() {
     session_loop(focus_session_time_in_seconds, focus_time_message);
 }
 
+fn break_time() {
+    let focus_session_time_in_seconds = 5 * 60;
+    let focus_time_message: &str = "Take a break ";
+    session_loop(focus_session_time_in_seconds, focus_time_message);
+}
+
 fn session_loop(session_time_in_seconds: u16, msg: &str) -> () {
     let mut elapsed_time = session_time_in_seconds;
     for _i in 0..session_time_in_seconds {
@@ -35,6 +41,8 @@ fn main() {
         .expect("Failed to read line");
 
     if mode == "1\n" {
+        focus_time();
+        break_time();
         focus_time();
     }
     println!();
