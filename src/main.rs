@@ -29,7 +29,7 @@ fn main() {
         .expect("Failed to read line");
 
     if mode == "1\n" {
-        let session_time_in_seconds = 5 * 1; // TODO: change this time to actual 25 * 60 seconds
+        let session_time_in_seconds = 25 * 60;
         focus_time_loop(session_time_in_seconds);
     }
     println!();
